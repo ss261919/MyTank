@@ -7,16 +7,18 @@ public class Bullet {
 
 	private int x,y;
 	public static final int WIDTH = ResourceMgr.bulletD.getWidth(),HEIGHT = ResourceMgr.bulletD.getHeight();
-	private static final int SPEED = 10;
+	private static final int SPEED = 5;
 	private Dir dir;
 	private TankFrame tf;
 	private boolean living = true;
+	private  Group group;
 	
-	public Bullet(int x, int y, Dir dir,TankFrame tf) {
+	public Bullet(int x, int y, Dir dir,Group group,TankFrame tf) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
+		this.group = group;
 		this.tf = tf;
 	}
 	
@@ -63,6 +65,24 @@ public class Bullet {
 			living = false;
 		}
 	}
+	
+	public void collideWith(Tank tank) {
+		if(this.group == tank.getGroup()) {
+			return;
+		}
+		//TODO:用一个rectangle来记录子弹的位置
+		Rectangle rBullet = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
+		Rectangle tBullet = new Rectangle(tank.getX(),tank.getY(),Tank.WIDTH,tank.HEIGHT);
+		if(rBullet.intersects(tBullet)) {
+			this.die();
+			tank.die();
+		}
+	}
+
+	private void die() {
+		this.living = false;
+	}
+	
 	public int getX() {
 		return x;
 	}
@@ -82,16 +102,11 @@ public class Bullet {
 		this.dir = dir;
 	}
 
-	public void collideWith(Tank tank) {
-		Rectangle rBullet = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
-		Rectangle tBullet = new Rectangle(tank.getX(),tank.getY(),Tank.WIDTH,tank.HEIGHT);
-		if(rBullet.intersects(tBullet)) {
-			this.die();
-			tank.die();
-		}
+	public Group getGroup() {
+		return group;
 	}
 
-	private void die() {
-		this.living = false;
+	public void setGroup(Group group) {
+		this.group = group;
 	}
 }

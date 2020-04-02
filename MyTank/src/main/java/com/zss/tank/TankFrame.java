@@ -15,7 +15,8 @@ public class TankFrame extends Frame {
 
 	public static final int GAME_WIDTH = 800;
 	public static final int GAME_HEIGHT = 600;
-	Tank myTank = new Tank(GAME_WIDTH/2-Tank.WIDTH/2,GAME_HEIGHT/2-Tank.HEIGHT/2,Dir.UP,this);
+//	Tank myTank = new Tank(GAME_WIDTH/2-Tank.WIDTH/2,GAME_HEIGHT/2-Tank.HEIGHT/2,Dir.UP,Group.GOOD,this);
+	Tank myTank = new Tank(GAME_WIDTH/2-Tank.WIDTH/2,GAME_HEIGHT-Tank.HEIGHT/2,Dir.UP,Group.GOOD,this);
 	List<Bullet> bulletList = new ArrayList<Bullet>();
 	
 	List<Tank> tanks = new ArrayList<Tank>();
@@ -43,7 +44,7 @@ public class TankFrame extends Frame {
 		Color color = g.getColor();
 		g.setColor(Color.WHITE);
 		g.drawString("子弹数量："+bulletList.size(), 10, 60);
-		g.drawString("坦克数量："+tanks.size(), 10, 80);
+		g.drawString("敌人数量："+tanks.size(), 10, 80);
 		g.setColor(color);
 		
 		myTank.paint(g);

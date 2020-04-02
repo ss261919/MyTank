@@ -1,27 +1,30 @@
 package com.zss.tank;
 
 import java.awt.Graphics;
+import java.util.Random;
 
 public class Tank {
 
 	private int x;
 	private int y;
 	public static final int WIDTH = ResourceMgr.tankD.getWidth(),HEIGHT = ResourceMgr.tankD.getHeight();
-	private static final int SPEED = 5;
+	private static final int SPEED = 1;
 	private Dir dir;
-	private boolean moving = false;
+	private boolean moving = true;
 	private boolean living = true;
-	
+	private  Group group = Group.BAD;
+	private Random random = new Random();
 	private TankFrame tf;
 	
 	public Tank() {
 		
 	}
-	public Tank(int x, int y, Dir dir,TankFrame tf) {
+	public Tank(int x, int y, Dir dir,Group group,TankFrame tf) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
+		this.group = group;
 		this.tf = tf;
 	}
 	
@@ -48,8 +51,8 @@ public class Tank {
 	}
 	
 	private void move() {
-		if(moving) {
-			switch (dir) {
+		if(!moving) return;
+		switch (dir) {
 			case LEFT:
 				x-=SPEED;
 				break;
@@ -62,15 +65,15 @@ public class Tank {
 			case DOWN:
 				y+=SPEED;
 				break;
-			}
 		}
+		if(random.nextInt(10)>8)this.fire();
 		
 	}
 	
 	public void fire() {
 		int x = this.x + this.WIDTH/2-Bullet.WIDTH/2 ;
 		int y = this.y + this.HEIGHT/2-Bullet.HEIGHT/2 ;
-		tf.bulletList.add(new Bullet(x,y,this.dir,tf));
+		tf.bulletList.add(new Bullet(x,y,this.dir,this.group,tf));
 	}
 	
 	
@@ -107,6 +110,13 @@ public class Tank {
 	public void die() {
 		living = false;
 	}
+	public Group getGroup() {
+		return group;
+	}
+	public void setGroup(Group group) {
+		this.group = group;
+	}
 
+	
 
 }
