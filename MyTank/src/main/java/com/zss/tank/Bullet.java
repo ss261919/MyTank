@@ -1,6 +1,7 @@
 package com.zss.tank;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public class Bullet {
 
@@ -25,19 +26,20 @@ public class Bullet {
 		}
 		
 		switch (dir) {
-		case LEFT:
-			g.drawImage(ResourceMgr.bulletL, x, y, null);
-			break;
-		case RIGHT:
-			g.drawImage(ResourceMgr.bulletR, x, y, null);
-			break;
-		case UP:
-			g.drawImage(ResourceMgr.bulletU, x, y, null);
-			break;
-		case DOWN:
-			g.drawImage(ResourceMgr.bulletD, x, y, null);
-			break;
-	}
+			case LEFT:
+				g.drawImage(ResourceMgr.bulletL, x, y, null);
+				break;
+			case RIGHT:
+				g.drawImage(ResourceMgr.bulletR, x, y, null);
+				break;
+			case UP:
+				g.drawImage(ResourceMgr.bulletU, x, y, null);
+				break;
+			case DOWN:
+				g.drawImage(ResourceMgr.bulletD, x, y, null);
+				break;
+		}
+		
 		move();
 		
 	}
@@ -78,5 +80,18 @@ public class Bullet {
 	}
 	public void setDir(Dir dir) {
 		this.dir = dir;
+	}
+
+	public void collideWith(Tank tank) {
+		Rectangle rBullet = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
+		Rectangle tBullet = new Rectangle(tank.getX(),tank.getY(),Tank.WIDTH,tank.HEIGHT);
+		if(rBullet.intersects(tBullet)) {
+			this.die();
+			tank.die();
+		}
+	}
+
+	private void die() {
+		this.living = false;
 	}
 }
