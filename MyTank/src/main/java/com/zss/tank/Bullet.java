@@ -76,7 +76,9 @@ public class Bullet {
 		if(rBullet.intersects(tBullet)) {
 			this.die();
 			tank.die();
-			tf.explodeList.add(new Explode(tank.getX()+tank.WIDTH/2-WIDTH/2, tank.getY()+tank.HEIGHT/2-HEIGHT/2, tf));
+			int ex = tank.getX()+tank.WIDTH/2-Explode.WIDTH/2 ;
+			int ey =tank.getY() + tank.HEIGHT/2-Explode.HEIGHT/2 ;
+			tf.explodeList.add(new Explode(ex,ey, tf));
 		}
 	}
 
