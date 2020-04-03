@@ -7,7 +7,7 @@ public class Bullet {
 
 	private int x,y;
 	public static final int WIDTH = ResourceMgr.bulletD.getWidth(),HEIGHT = ResourceMgr.bulletD.getHeight();
-	private static final int SPEED = 5;
+	private static final int SPEED = 8;
 	private Dir dir;
 	private TankFrame tf;
 	private boolean living = true;
@@ -76,6 +76,7 @@ public class Bullet {
 		if(rBullet.intersects(tBullet)) {
 			this.die();
 			tank.die();
+			tf.explodeList.add(new Explode(tank.getX()+tank.WIDTH/2-WIDTH/2, tank.getY()+tank.HEIGHT/2-HEIGHT/2, tf));
 		}
 	}
 

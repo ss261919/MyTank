@@ -8,7 +8,7 @@ public class Tank {
 	private int x;
 	private int y;
 	public static final int WIDTH = ResourceMgr.tankD.getWidth(),HEIGHT = ResourceMgr.tankD.getHeight();
-	private static final int SPEED = 1;
+	private static final int SPEED = 2;
 	private Dir dir;
 	private boolean moving = true;
 	private boolean living = true;
@@ -66,10 +66,16 @@ public class Tank {
 				y+=SPEED;
 				break;
 		}
-		if(random.nextInt(10)>8)this.fire();
+		if(this.group == group.BAD && random.nextInt(100) > 95)this.fire();
+		if(this.group == group.BAD && random.nextInt(100) > 95)
+			randomDir();
 		
 	}
 	
+	private void randomDir() {
+		this.dir = Dir.values()[random.nextInt(4)];
+		
+	}
 	public void fire() {
 		int x = this.x + this.WIDTH/2-Bullet.WIDTH/2 ;
 		int y = this.y + this.HEIGHT/2-Bullet.HEIGHT/2 ;
