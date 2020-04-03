@@ -1,6 +1,7 @@
 package com.zss.tank;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.Random;
 
 public class Tank {
@@ -16,9 +17,8 @@ public class Tank {
 	private Random random = new Random();
 	private TankFrame tf;
 	
-	public Tank() {
-		
-	}
+	Rectangle rect = new Rectangle();
+	
 	public Tank(int x, int y, Dir dir,Group group,TankFrame tf) {
 		super();
 		this.x = x;
@@ -26,6 +26,10 @@ public class Tank {
 		this.dir = dir;
 		this.group = group;
 		this.tf = tf;
+		rect.x = x;
+		rect.y = y;
+		rect.width = WIDTH;
+		rect.height = HEIGHT;
 	}
 	
 	public void paint(Graphics g) {
@@ -69,9 +73,10 @@ public class Tank {
 		if(this.group == group.BAD && random.nextInt(100) > 95)this.fire();
 		if(this.group == group.BAD && random.nextInt(100) > 95)
 			randomDir();
-		
+		//update rect
 		boundsCheck();
-		
+		rect.x = x;
+		rect.y = y;
 	}
 	/**
 	 * 边界检测
